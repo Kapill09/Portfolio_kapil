@@ -29,7 +29,7 @@ function ParsedContent({ content, accentColor = 'hsl(var(--accent))' }: { conten
 
   const lines = content.split('\n').filter(line => line.trim())
   const elements = []
-  let isInList = false
+
   let listItems: string[] = []
 
   for (const line of lines) {
@@ -38,21 +38,18 @@ function ParsedContent({ content, accentColor = 'hsl(var(--accent))' }: { conten
       if (listItems.length > 0) {
         elements.push({ type: 'list', items: listItems })
         listItems = []
-        isInList = false
       }
       // Add heading
       const heading = line.replace(/###\s*/, '').trim()
       elements.push({ type: 'heading', content: heading })
     } else if (line.startsWith('- ') || line.startsWith('• ')) {
       // Collect list items
-      isInList = true
       listItems.push(line.replace(/^[-•]\s*/, '').trim())
     } else if (line.trim()) {
       // Render accumulated list if any
       if (listItems.length > 0) {
         elements.push({ type: 'list', items: listItems })
         listItems = []
-        isInList = false
       }
       // Add paragraph
       elements.push({ type: 'paragraph', content: line.trim() })

@@ -1,5 +1,5 @@
 import { Mail } from 'lucide-react'
-import { Github, Linkedin, Twitter } from '@/components/ui/Icons'
+import { Github, Linkedin } from '@/components/ui/Icons'
 
 const socialIcons = [
   { icon: Github, href: 'https://github.com/Kapill09', label: 'GitHub' },

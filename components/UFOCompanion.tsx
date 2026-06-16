@@ -165,12 +165,11 @@ const UFOCompanion: FC = () => {
   useEffect(() => {
     setMounted(true);
     // Detect touch device
-    const isTouchCapable = () => {
-      return (('ontouchstart' in window) ||
-              (navigator.maxTouchPoints > 0) ||
-              (navigator.msMaxTouchPoints > 0));
-    };
-    setIsTouchDevice(isTouchCapable());
+const isTouchCapable = () =>
+  'ontouchstart' in window ||
+  navigator.maxTouchPoints > 0;
+
+setIsTouchDevice(isTouchCapable());
     
     const initialPos = {
       x: window.innerWidth / 2,
@@ -305,7 +304,7 @@ const UFOCompanion: FC = () => {
     return () => {
       if (rafId) cancelAnimationFrame(rafId);
     };
-  }, [mounted, state]);
+  }, [mounted]);
 
   // Teleport on click
   const handleClick = () => {

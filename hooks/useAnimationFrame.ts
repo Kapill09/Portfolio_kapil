@@ -24,7 +24,7 @@ export function useAnimationFrame(
   callback: (deltaTime: number) => void,
   deps: React.DependencyList = []
 ): void {
-  const rafRef = useRef<number>()
+  const rafRef = useRef<number | null>(null)
   const lastTimeRef = useRef<number>(0)
 
   const animate = useCallback(
@@ -47,7 +47,9 @@ export function useAnimationFrame(
 
     return () => {
       if (rafRef.current) {
-        cancelAnimationFrame(rafRef.current)
+        if (rafRef.current !== null) {
+  cancelAnimationFrame(rafRef.current)
+}
       }
       lastTimeRef.current = 0
     }
@@ -67,7 +69,7 @@ export function useThrottledEventHandler(
   throttleMs: number = 16
 ): (event: MouseEvent | TouchEvent) => void {
   const lastCallRef = useRef<number>(0)
-  const timeoutRef = useRef<NodeJS.Timeout>()
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   return useCallback(
     (event: MouseEvent | TouchEvent) => {

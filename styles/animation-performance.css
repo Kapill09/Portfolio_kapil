@@ -1,0 +1,150 @@
+/* ============================================
+   ANIMATION PERFORMANCE OPTIMIZATIONS
+   ============================================ */
+
+/* OPTIMIZATION: Force GPU acceleration for expensive animations */
+/* Using translate3d(0, 0, 0) creates a composite layer */
+.will-animate-heavy {
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+/* UFO companion - smooth cursor tracking */
+.ufo-container {
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Project cards - smooth hover animations */
+.project-card-animated {
+  will-change: transform;
+  /* Use GPU-accelerated transform instead of layout properties */
+  transform: translate3d(0, 0, 0);
+}
+
+/* Folder component - 3D transforms */
+.folder-3d-container {
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  perspective: 1400px;
+  transform-style: preserve-3d;
+}
+
+/* Magnetic button hover */
+.magnetic-element {
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+/* ============================================
+   GPU-ACCELERATED ANIMATION KEYFRAMES
+   ============================================ */
+
+/* Use translate3d instead of left/top for better performance */
+@keyframes slide-up-gpu {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slide-down-gpu {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -24px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slide-left-gpu {
+  from {
+    opacity: 0;
+    transform: translate3d(-20px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slide-right-gpu {
+  from {
+    opacity: 0;
+    transform: translate3d(20px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* ============================================
+   PERFORMANCE: REDUCED MOTION
+   ============================================ */
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .will-animate-heavy,
+  .ufo-container,
+  .project-card-animated,
+  .folder-3d-container,
+  .magnetic-element {
+    will-change: unset;
+  }
+}
+
+/* ============================================
+   SMOOTHNESS: FONT SMOOTHING
+   ============================================ */
+
+/* Better text rendering during animations */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   PERFORMANCE TIPS
+   ============================================ */
+
+/* 
+  ANIMATION BEST PRACTICES USED:
+  
+  1. GPU-Accelerated Properties:
+     ✓ transform (translate, rotate, scale)
+     ✓ opacity
+     ✓ filter
+  
+  2. Avoid Animating:
+     ✗ width, height
+     ✗ top, left, bottom, right
+     ✗ margin, padding
+     ✗ font-size
+  
+  3. Performance Hints:
+     ✓ will-change for expensive animations
+     ✓ translate3d creates composite layer
+     ✓ contain: layout for isolated animations
+  
+  4. Browser Support:
+     ✓ Chrome 60+
+     ✓ Firefox 55+
+     ✓ Safari 12.1+
+     ✓ Edge 79+
+*/

@@ -1,0 +1,18 @@
+<svg width="320" height="380" viewBox="0 0 320 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="320" height="380" fill="#A9E8F1"/>
+  <path d="M0 118C36 92 64 84 96 102C126 119 151 119 180 95C217 64 266 72 320 112V0H0V118Z" fill="#D8F9FF"/>
+  <path d="M0 268C44 229 92 228 133 260C168 287 207 285 240 256C264 236 291 229 320 240V380H0V268Z" fill="#8ABF83"/>
+  <path d="M0 312C52 279 97 279 136 306C179 335 216 333 253 303C275 285 298 279 320 284V380H0V312Z" fill="#6EA56F"/>
+  <circle cx="160" cy="154" r="58" fill="#2E5E78"/>
+  <path d="M98 152C108 106 128 82 162 82C197 82 218 108 224 152C203 132 181 123 158 126C134 129 115 137 98 152Z" fill="#1F4358"/>
+  <circle cx="160" cy="171" r="47" fill="#F0C8AA"/>
+  <path d="M113 168C118 125 140 104 178 105C204 106 220 129 222 168C201 150 183 142 163 144C142 146 125 154 113 168Z" fill="#234D63"/>
+  <path d="M98 328C103 278 126 245 160 245C194 245 217 278 222 328H98Z" fill="#315F78"/>
+  <path d="M129 250C138 263 148 270 160 270C172 270 183 263 191 250C185 239 175 233 160 233C146 233 135 239 129 250Z" fill="#F0C8AA"/>
+  <circle cx="143" cy="171" r="4" fill="#18313F"/>
+  <circle cx="178" cy="171" r="4" fill="#18313F"/>
+  <path d="M143 201C155 209 168 209 180 201" stroke="#B16C5C" stroke-width="6" stroke-linecap="round"/>
+  <path d="M97 38L118 50L143 42L164 57L194 42L215 52L241 40" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+  <rect x="65" y="292" width="190" height="45" rx="22.5" fill="white" fill-opacity="0.82"/>
+  <text x="160" y="322" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" font-weight="800" fill="#315F78">Kapil</text>
+</svg>

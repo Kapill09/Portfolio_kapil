@@ -4,14 +4,14 @@ A modern, premium portfolio built with **Next.js**, **TypeScript**, and **Tailwi
 
 ## Features
 
-- ✨ **Premium Design**: Clean, minimal aesthetic with excellent typography and whitespace
-- 🌓 **Dark/Light Mode**: Seamless theme switching with persistent storage
-- 📱 **Responsive**: Beautiful on all devices from mobile to desktop
-- ⚡ **Fast**: Built with Next.js for optimal performance
-- 🎨 **Tailwind CSS**: Modern utility-first styling
-- 📝 **TypeScript**: Full type safety across the codebase
-- 🎭 **Subtle Animations**: Smooth, non-intrusive hover effects and transitions
-- 🔗 **Social Integration**: Easy links to GitHub, LinkedIn, and Email
+- **Premium Design**: Clean, minimal aesthetic with excellent typography and whitespace
+- **Dark/Light Mode**: Seamless theme switching with persistent storage
+- **Responsive**: Beautiful on all devices from mobile to desktop
+- **Fast**: Built with Next.js for optimal performance
+- **Tailwind CSS**: Modern utility-first styling
+- **TypeScript**: Full type safety across the codebase
+- **Subtle Animations**: Smooth, non-intrusive hover effects and transitions
+- **Social Integration**: Easy links to GitHub, LinkedIn, and Email
 
 ## Project Structure
 

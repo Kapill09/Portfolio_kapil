@@ -25,6 +25,7 @@ export interface Project {
   github?: string
   gradient: string
   status: string
+  imageFit?: 'cover' | 'contain'
   
   story: {
     overview?: string
@@ -265,49 +266,68 @@ export const projects: Project[] = [
     ]
   },
   {
-    id: 'portfolio',
-    title: 'Portfolio Website',
-    shortDescription: 'An immersive personal portfolio with playful interactions, responsive storytelling, and polished motion.',
-    image: '/images/projects/portfolio.jpg',
-    visual: 'portfolio',
-    tags: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
-    github: 'https://github.com',
-    link: '/',
-    gradient: 'from-sky-400/25 to-indigo-400/20',
+    id: 'cafe-finder',
+    title: 'Cafe Finder',
+    shortDescription: 'A location-based web app that helps users discover, compare, and select the best cafes around them.',
+    image: '/images/cafe-finder/cover.png',
+    imageFit: 'contain',
+    visual: 'workspace',
+    tags: ['JavaScript', 'Google Maps API', 'Google Places API', 'HTML', 'CSS'],
+    gradient: 'from-amber-400/20 to-orange-400/20',
     status: 'Completed',
-    
+
     story: {
-      problem: 'Traditional developer portfolios often feel like static resumes and fail to communicate personality, craft, or the thinking behind each project.',
-      solution: 'Designed a responsive, story-driven portfolio with a dynamic sky system, tactile project interactions, and focused case-study pages powered by reusable data.',
-      impact: 'Created a memorable browsing experience that presents technical work clearly while demonstrating frontend animation and interaction skills.'
+      overview: 'Cafe Finder is a location-based web application that helps users discover, compare, and select the most suitable cafes around them. The platform enables users to search for cafes, restaurants, bakeries, and other food destinations while viewing them on an interactive map with real-time location support and advanced search capabilities.',
+      problem: [
+        'Finding a cafe is easy, but choosing the right one is difficult',
+        'Most map apps show dozens of nearby options with limited decision support',
+        'Users struggle to evaluate pricing, ambience, ratings, distance, and suitability for work or study',
+        'Factors like budget, opening hours, and overall experience are hard to compare at a glance',
+        'Raw location data rarely translates into personalized, purpose-driven recommendations'
+      ],
+      solution: 'Cafe Finder bridges this gap by combining location intelligence with smart filtering and recommendation mechanisms. Users can search by current location or any area, view results on an interactive map and card layout, and apply filters for budget, rating, radius, and open-now status to narrow options that fit their needs.',
+      impact: [
+        'Helps users answer which cafe is best for studying, within budget, or highest rated nearby',
+        'Transforms raw location data into meaningful, filterable insights',
+        'Enables real-time comparison of cafes by ratings, pricing, distance, and opening status',
+        'Improves decision-making with map markers, detailed place info, and Google Maps navigation',
+        'Delivers a mobile-friendly experience with real-time updates and loading states',
+        'Lays the foundation for V2 intelligent features like AI ranking and personalized recommendations'
+      ]
     },
+    howItWorks: [
+      { number: 1, title: 'Open & Set Location', description: 'Users open the application and choose their discovery area by using current location, searching a specific place, or dragging the map to another location.' },
+      { number: 2, title: 'Fetch Nearby Places', description: 'Google Maps displays the selected area while the Google Places API fetches nearby cafes, restaurants, bakeries, and other food destinations.' },
+      { number: 3, title: 'Explore Results', description: 'Results appear on both interactive map markers and restaurant cards, giving users a spatial and detailed view of available options.' },
+      { number: 4, title: 'Apply Smart Filters', description: 'Users refine results with budget, minimum rating, search radius, and open-now filters that update dynamically as selections change.' },
+      { number: 5, title: 'Compare & Decide', description: 'Users view cafe details including ratings, pricing, distance, photos, and opening status to compare options for their purpose.' },
+      { number: 6, title: 'Navigate & Visit', description: 'Users open directions and navigate using Google Maps integration to reach their chosen cafe.' }
+    ],
     features: [
-      { title: 'Interactive Project Folder', description: 'A tactile layered folder experience with cursor-responsive perspective and spring motion.' },
-      { title: 'Dynamic Atmosphere', description: 'A time-aware sky and cloud system that gives the site a distinct visual identity.' },
-      { title: 'Reusable Case Studies', description: 'Centralized project data powers scalable gallery and project detail routes.' },
-      { title: 'Responsive Motion', description: 'Animations adapt gracefully across screen sizes and reduced-motion preferences.' }
+      { title: 'Location Intelligence', description: 'Accurate geolocation with Use My Location and Search This Area, powered by interactive Google Maps integration.' },
+      { title: 'Smart Search', description: 'Discover cafes, restaurants, bakeries, and food spots with location-based discovery and real-time result updates.' },
+      { title: 'Advanced Filtering', description: 'Filter by budget, minimum rating, search radius, and open-now status with dynamically updating results.' },
+      { title: 'Interactive Maps', description: 'Dynamic map markers with clustering, drag-and-search support, and Google Maps navigation integration.' },
+      { title: 'Detailed Cafe Information', description: 'View ratings, reviews, pricing, distance, opening status, address, photos, and place details for each cafe.' },
+      { title: 'Responsive User Experience', description: 'Mobile-friendly interface with modern UI design, real-time updates, and loading states with skeleton screens.' }
     ],
     techStackGroups: {
-      'Frontend': ['Next.js', 'React', 'TypeScript', 'Tailwind CSS'],
-      'Motion': ['Framer Motion'],
-      'Tools': ['ESLint', 'Git']
+      'Frontend': ['HTML', 'CSS', 'JavaScript'],
+      'Maps & Location': ['Google Maps JavaScript API', 'Google Places API', 'Geolocation API'],
+      'Features': ['Marker Clustering', 'Local Storage']
     },
-    gallery: [
-      '/images/projects/portfolio-1.jpg',
-      '/images/projects/portfolio-2.jpg',
-      '/images/projects/portfolio-3.jpg'
-    ],
+    gallery: [],
     journey: [
-      { phase: 'Strategy', title: 'Content Architecture', description: 'Mapped the portfolio around projects, skills, and a concise personal story.' },
-      { phase: 'Design', title: 'Visual Language', description: 'Developed the cloud surfaces, sky palette, and tactile interaction system.' },
-      { phase: 'Build', title: 'Component System', description: 'Implemented responsive sections and data-driven project routes.' },
-      { phase: 'Polish', title: 'Motion & Accessibility', description: 'Tuned animations, focus states, and reduced-motion behavior.' }
+      { phase: 'Research', title: 'Problem Discovery', description: 'Identified the gap between finding cafes and choosing the right one based on purpose, budget, and ambience.' },
+      { phase: 'Design', title: 'User Flow & UI', description: 'Designed a map-first interface with card-based results, filters, and mobile-friendly layouts.' },
+      { phase: 'Development', title: 'Core Platform', description: 'Built location search, Places API integration, marker clustering, and real-time filter updates.' },
+      { phase: 'Roadmap', title: 'Cafe Finder V2', description: 'Planned AI-based ranking, student/work/meeting modes, review summarization, and crowd prediction.' }
     ],
     metrics: [
-      { value: '100%', label: 'Responsive' },
-      { value: '60fps', label: 'Motion Target' },
-      { value: '5+', label: 'Project Routes' },
-      { value: 'A11y', label: 'Motion Aware' }
+      { value: '4+', label: 'Filter Types' },
+      { value: 'Live', label: 'Map Updates' },
+      { value: 'Real-time', label: 'Geolocation' },
+      { value: 'V2', label: 'AI Roadmap' }
     ]
   },
   {

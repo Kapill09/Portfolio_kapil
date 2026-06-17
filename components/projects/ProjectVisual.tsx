@@ -7,6 +7,7 @@ interface ProjectVisualProps {
   project: Project
   className?: string
   label?: string
+  fit?: 'cover' | 'contain'
 }
 
 function BrowserBar({ label }: { label: string }) {
@@ -135,9 +136,10 @@ function GenericVisual({ project }: { project: Project }) {
   )
 }
 
-export function ProjectVisual({ project, className = '', label }: ProjectVisualProps) {
+export function ProjectVisual({ project, className = '', label, fit }: ProjectVisualProps) {
   const visual = project.visual ?? 'workspace'
   const hasImage = project.image && (project.image.includes('.png') || project.image.includes('.jpg') || project.image.includes('.jpeg'))
+  const imageFit = fit ?? project.imageFit ?? 'cover'
 
   return (
     <div className={`relative h-full w-full overflow-hidden ${className}`} aria-label={label ?? `${project.title} thumbnail`}>
@@ -146,7 +148,7 @@ export function ProjectVisual({ project, className = '', label }: ProjectVisualP
           src={project.image}
           alt={project.title}
           fill
-          className="object-cover"
+          className={imageFit === 'contain' ? 'object-contain bg-[#1a1410]' : 'object-cover'}
           priority
         />
       ) : (

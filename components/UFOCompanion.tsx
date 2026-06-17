@@ -304,7 +304,7 @@ setIsTouchDevice(isTouchCapable());
     return () => {
       if (rafId) cancelAnimationFrame(rafId);
     };
-  }, [mounted]);
+  }, [mounted ]);
 
   // Teleport on click
   const handleClick = () => {

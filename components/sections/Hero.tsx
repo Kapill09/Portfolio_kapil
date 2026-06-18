@@ -9,9 +9,9 @@ import { Github, Linkedin } from '@/components/ui/Icons'
 import { Magnetic } from '@/components/magnetic/Magnetic'
 
 const socialLinks = [
-  { icon: Github, href: 'https://github.com/kapil', label: 'GitHub' },
-  { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-  { icon: Mail, href: 'mailto:kapil@example.com', label: 'Email' },
+  { icon: Github, href: 'https://github.com/Kapill09', label: 'GitHub' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/in/kapil-meena-b4884a313/', label: 'LinkedIn' },
+  { icon: Mail, href: 'meenakapil2005@gmail.com', label: 'Email' },
 ]
 
 export function Hero() {

@@ -1,7 +1,7 @@
 import { Navbar } from '@/components/layout/Navbar'
 import { SkyBackground } from '@/components/effects/SkyBackground'
 import { DeveloperConsole } from '@/components/effects/DeveloperConsole'
-import UFOCompanion from '@/components/UFOCompanion'
+import OnekoCompanion from '@/components/OnekoCompanion'
 import { PageTransition } from '@/components/layout/PageTransition'
 import './globals.css'
 
@@ -28,7 +28,7 @@ export default function RootLayout({
         <SkyBackground />
         <Navbar />
         <PageTransition>{children}</PageTransition>
-        <UFOCompanion />
+        <OnekoCompanion />
       </body>
     </html>
   )

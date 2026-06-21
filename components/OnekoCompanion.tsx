@@ -7,7 +7,7 @@ import { useEffect, useRef, type FC } from "react";
 const NEKO_SPEED = 9;
 const SPRITE_SIZE = 32;
 const IDLE_THRESHOLD = 48;
-const IDLE_SCRATCH_DELAY = 4;
+const IDLE_SCRATCH_DELAY = 6;
 const IDLE_TIRED_DELAY = 8;
 const IDLE_SLEEP_DELAY = 14;
 
@@ -151,6 +151,21 @@ const OnekoCompanion: FC = () => {
 
     window.addEventListener("mousemove", onMouseMove, { passive: true });
 
+    const onDoubleClick = () => {
+      const state = stateRef.current;
+      if (state.idleAnimation === "sleeping") {
+        state.idleAnimation = "stretching";
+        state.idleAnimationFrame = 0;
+        const el = nekoRef.current;
+        if (el) {
+          el.style.pointerEvents = "none";
+          setSprite(el, "scratchWallN", 0);
+        }
+      }
+    };
+
+    el.addEventListener("dblclick", onDoubleClick);
+
     // ── Tick-based animation at ~10 FPS (classic Oneko rate) ─────────
 
     const TICK_INTERVAL = 100; // ms per logic tick
@@ -184,6 +199,7 @@ const OnekoCompanion: FC = () => {
       // Cat is chasing — reset idle state
       state.idleAnimation = null;
       state.idleAnimationFrame = 0;
+      el.style.pointerEvents = "none";
 
       // If we were idle and cursor moved, show alert first
       if (state.idleTime > 1) {
@@ -228,18 +244,22 @@ const OnekoCompanion: FC = () => {
       // Check for wall scratching at viewport edges
       if (state.nekoPosX <= 18) {
         state.idleAnimation = "scratchWallW";
+        el.style.pointerEvents = "none";
         return;
       }
       if (state.nekoPosX >= window.innerWidth - 18) {
         state.idleAnimation = "scratchWallE";
+        el.style.pointerEvents = "none";
         return;
       }
       if (state.nekoPosY <= 18) {
         state.idleAnimation = "scratchWallN";
+        el.style.pointerEvents = "none";
         return;
       }
       if (state.nekoPosY >= window.innerHeight - 18) {
         state.idleAnimation = "scratchWallS";
+        el.style.pointerEvents = "none";
         return;
       }
 
@@ -248,22 +268,27 @@ const OnekoCompanion: FC = () => {
         // After a while sleeping, occasionally groom
         if (state.idleTime % 16 === 0 && Math.random() < 0.3) {
           state.idleAnimation = "scratchSelf";
+          el.style.pointerEvents = "none";
           return;
         }
         state.idleAnimation = "sleeping";
+        el.style.pointerEvents = "auto";
         return;
       }
       if (state.idleTime > IDLE_TIRED_DELAY) {
         state.idleAnimation = "tired";
+        el.style.pointerEvents = "none";
         return;
       }
       if (state.idleTime > IDLE_SCRATCH_DELAY) {
         state.idleAnimation = "scratchSelf";
+        el.style.pointerEvents = "none";
         return;
       }
 
       // Just sitting
       setSprite(el, "idle", 0);
+      el.style.pointerEvents = "none";
     };
 
     // ── Idle animation handler ────────────────────────────────────────
@@ -283,6 +308,7 @@ const OnekoCompanion: FC = () => {
         state.idleAnimation = null;
         state.idleAnimationFrame = 0;
         state.idleTime = 0;
+        el.style.pointerEvents = "none";
         return;
       }
 
@@ -291,12 +317,25 @@ const OnekoCompanion: FC = () => {
 
       if (anim === "sleeping") {
         setSprite(el, "sleeping", Math.floor(state.idleAnimationFrame / 4));
+        el.style.pointerEvents = "auto";
+      } else if (anim === "stretching") {
+        if (state.idleAnimationFrame < 4) {
+          setSprite(el, "scratchWallN", state.idleAnimationFrame);
+        } else if (state.idleAnimationFrame === 4) {
+          setSprite(el, "idle", 0);
+        } else {
+          state.idleAnimation = null;
+          state.idleAnimationFrame = 0;
+          state.idleTime = 0;
+          el.style.pointerEvents = "none";
+        }
       } else if (anim === "scratchSelf") {
         setSprite(el, "scratchSelf", state.idleAnimationFrame);
         // After a few loops of grooming, progress to tired/sleeping
         if (state.idleAnimationFrame > 9) {
           state.idleAnimation = null;
           state.idleAnimationFrame = 0;
+          el.style.pointerEvents = "none";
           // Let the normal idle handler pick up next state
         }
       } else if (anim === "tired") {
@@ -304,6 +343,7 @@ const OnekoCompanion: FC = () => {
         if (state.idleAnimationFrame > 6) {
           state.idleAnimation = "sleeping";
           state.idleAnimationFrame = 0;
+          el.style.pointerEvents = "auto";
         }
       } else {
         // Wall scratching animations
@@ -311,6 +351,7 @@ const OnekoCompanion: FC = () => {
         if (state.idleAnimationFrame > 9) {
           state.idleAnimation = null;
           state.idleAnimationFrame = 0;
+          el.style.pointerEvents = "none";
         }
       }
     };
@@ -347,6 +388,7 @@ const OnekoCompanion: FC = () => {
       state.mounted = false;
       cancelAnimationFrame(rafId);
       window.removeEventListener("mousemove", onMouseMove);
+      el.removeEventListener("dblclick", onDoubleClick);
     };
   }, []);
 

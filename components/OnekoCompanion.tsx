@@ -6,7 +6,7 @@ import { useEffect, useRef, type FC } from "react";
 
 const NEKO_SPEED = 9;
 const SPRITE_SIZE = 32;
-const IDLE_THRESHOLD = 48;
+const IDLE_THRESHOLD = 100;
 const IDLE_SCRATCH_DELAY = 6;
 const IDLE_TIRED_DELAY = 8;
 const IDLE_SLEEP_DELAY = 14;
@@ -122,6 +122,7 @@ const OnekoCompanion: FC = () => {
     accumulator: 0,
     mounted: false,
     hasMouseMoved: false,
+    lastMouseMoveTime: 0,
   });
 
   useEffect(() => {
@@ -144,10 +145,11 @@ const OnekoCompanion: FC = () => {
     // ── Mouse tracking ──────────────────────────────────────────────────
 
     const onMouseMove = (e: MouseEvent) => {
-      state.mousePosX = e.clientX;
-      state.mousePosY = e.clientY;
-      state.hasMouseMoved = true;
-    };
+  state.mousePosX = e.clientX;
+  state.mousePosY = e.clientY;
+  state.hasMouseMoved = true;
+  state.lastMouseMoveTime = performance.now();
+};
 
     window.addEventListener("mousemove", onMouseMove, { passive: true });
 
@@ -302,7 +304,13 @@ const OnekoCompanion: FC = () => {
       const diffY = state.mousePosY - state.nekoPosY;
       const distance = Math.sqrt(diffX * diffX + diffY * diffY);
 
-      if (distance >= IDLE_THRESHOLD && state.hasMouseMoved) {
+      const wakeDelay = 600; // ms
+
+      if (
+          distance >= IDLE_THRESHOLD &&
+          state.hasMouseMoved &&
+          performance.now() - state.lastMouseMoveTime > wakeDelay
+          ) {
         // Wake up!
         setSprite(el, "alert", 0);
         state.idleAnimation = null;

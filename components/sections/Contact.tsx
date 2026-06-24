@@ -44,6 +44,10 @@ const emailJsConfig = {
   publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
 }
 
+const recipientEmail = 'meenakapil2005@gmail.com'
+
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
 export function Contact() {
   return <ContactSection />
 }
@@ -96,10 +100,53 @@ export function ContactForm() {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
+    if (isSending) {
+      return
+    }
+
+    const trimmedValues = {
+      name: values.name.trim(),
+      email: values.email.trim(),
+      phone: values.phone.trim(),
+      message: values.message.trim(),
+    }
+
+    if (!trimmedValues.name) {
+      showToast({
+        type: 'error',
+        message: 'Please enter your name.',
+      })
+      return
+    }
+
+    if (!trimmedValues.email) {
+      showToast({
+        type: 'error',
+        message: 'Please enter your email address.',
+      })
+      return
+    }
+
+    if (!emailPattern.test(trimmedValues.email)) {
+      showToast({
+        type: 'error',
+        message: 'Please enter a valid email address.',
+      })
+      return
+    }
+
+    if (!trimmedValues.message) {
+      showToast({
+        type: 'error',
+        message: 'Please enter a message.',
+      })
+      return
+    }
+
     if (!emailJsConfig.serviceId || !emailJsConfig.templateId || !emailJsConfig.publicKey) {
       showToast({
         type: 'error',
-        message: 'EmailJS is missing its public environment variables.',
+        message: 'Message service is not configured yet.',
       })
       return
     }
@@ -117,10 +164,12 @@ export function ContactForm() {
           template_id: emailJsConfig.templateId,
           user_id: emailJsConfig.publicKey,
           template_params: {
-            from_name: values.name,
-            from_email: values.email,
-            phone_number: values.phone,
-            message: values.message,
+            to_email: recipientEmail,
+            from_name: trimmedValues.name,
+            from_email: trimmedValues.email,
+            reply_to: trimmedValues.email,
+            phone_number: trimmedValues.phone || 'Not provided',
+            message: trimmedValues.message,
           },
         }),
       })
@@ -132,12 +181,12 @@ export function ContactForm() {
       setValues(initialFormValues)
       showToast({
         type: 'success',
-        message: 'Message sent. I will get back to you soon.',
+        message: 'Message sent successfully. I will get back to you soon.',
       })
     } catch {
       showToast({
         type: 'error',
-        message: 'Could not send the message. Please try again.',
+        message: 'Could not send your message. Please try again in a moment.',
       })
     } finally {
       setIsSending(false)
